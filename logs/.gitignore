@@ -1,0 +1,4 @@
+# fichiers de log append-only, ignorés par git
+*.log
+campagne_*.json
+!.gitignore

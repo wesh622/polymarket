@@ -1,0 +1,18 @@
+engagement:
+  nom: "Lab personnel - octobre 2026"
+  autorisation_ref: "AUTH-2026-001"   # référence du document d'autorisation signé
+  valide_jusqu_au: "2026-12-31"
+
+autorise:
+  domaines:
+    - "exemple-perso.com"
+    - "*.lab.exemple-perso.com"
+  ips:
+    - "192.168.56.0/24"               # réseau de lab isolé
+    - "10.10.10.5"
+  exclusions:                          # jamais testé, même si inclus dans une plage
+    - "192.168.56.1"                   # passerelle
+
+limites:
+  intensite_max: "normale"             # passive | normale | agressive
+  heures_autorisees: "00:00-23:59"

@@ -1,0 +1,15 @@
+# Configuration applicative (chemins, timeouts, concurrence) — NFR-07.
+# Les secrets ne vont PAS ici : variables d'environnement uniquement (NFR-01).
+
+operateur: "omar"
+
+execution:
+  timeout_defaut: 300        # secondes par outil
+  concurrence: 1             # nb de cibles scannées en parallèle (1 = séquentiel)
+
+chemins:
+  audit_log: "logs/audit.log"
+  dossier_etat: "logs"
+
+outils:
+  nmap: "nmap"               # résolu via PATH ; surchargez pour un chemin absolu

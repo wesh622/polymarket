@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+
+# Fichiers de périmètre et config réels (jamais versionnés — contiennent des
+# cibles et références d'engagement). Seuls les *.example sont suivis.
+scope.yaml
+config.yaml
+
+# Rapports générés
+rapport*.md
+*.pdf
