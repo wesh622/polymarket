@@ -39,7 +39,14 @@ def cmd_run(args) -> int:
 
     phases = (args.phase,) if args.phase else PHASES
     campagne = Campagne(nom=args.nom, cibles=args.cibles, intensite=args.intensite)
-    etat = orch.lancer(campagne, phases=phases, reprendre=args.reprendre)
+    etat = orch.lancer(
+        campagne,
+        phases=phases,
+        reprendre=args.reprendre,
+        wordlist=args.wordlist,
+        sqlmap=args.sqlmap,
+        severite_min=args.severite_min,
+    )
 
     if args.rapport:
         md = generer_markdown(campagne.nom, etat)
@@ -70,6 +77,13 @@ def construire_parseur() -> argparse.ArgumentParser:
     r.add_argument("--dossier-etat", default="logs")
     r.add_argument("--rapport", help="chemin du rapport Markdown à écrire")
     r.add_argument("--reprendre", action="store_true", help="reprendre l'état existant")
+    r.add_argument("--wordlist", help="wordlist ffuf (active la découverte de contenu)")
+    r.add_argument("--sqlmap", action="store_true", help="activer sqlmap (exige scope agressif)")
+    r.add_argument(
+        "--severite-min",
+        choices=["info", "low", "medium", "high", "critical"],
+        help="sévérité minimale nuclei",
+    )
     r.set_defaults(func=cmd_run)
     return p
 

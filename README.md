@@ -27,9 +27,9 @@ Suit le plan incrémental du cahier des charges (§12) :
 - [x] 1. Scope Guard + tests (`src/scope_guard.py`, `tests/test_scope_guard.py`)
 - [x] 2. Audit log append-only chaîné (`src/audit_log.py`)
 - [x] 3. Adaptateur nmap passant par le Scope Guard (`src/adapters/nmap.py`)
-- [x] 4. Moteur de phases minimal recon → scan + CLI (`src/orchestrator.py`, `src/main.py`)
+- [x] 4. Moteur de phases recon → scan → web → vuln + CLI (`src/orchestrator.py`, `src/main.py`)
 - [x] 5. Parsing JSON normalisé → reporting Markdown (`src/reporting/report.py`)
-- [ ] 6. Adaptateurs supplémentaires (nuclei, ffuf, nikto, sqlmap)
+- [x] 6. Adaptateurs supplémentaires : httpx, nuclei, ffuf, nikto, sqlmap (`src/adapters/`)
 - [ ] 7. Module mobile en lab (MobSF)
 - [ ] 8. (Optionnel) bot Telegram authentifié
 
@@ -73,6 +73,23 @@ python src/main.py --scope scope.yaml run \
 python src/main.py --scope scope.yaml run --phase recon --cibles exemple-perso.com
 python src/main.py --scope scope.yaml run --nom "lab-oct" --cibles 10.10.10.5 --reprendre
 ```
+
+### Options des phases web / vuln
+
+```bash
+# ffuf (découverte de contenu) : activé en fournissant une wordlist
+python src/main.py --scope scope.yaml run --cibles 10.10.10.5 --wordlist /usr/share/wordlists/dirb/common.txt
+
+# sqlmap : test actif, exige intensite_max=agressive dans le scope
+python src/main.py --scope scope.yaml --intensite agressive run --cibles http://10.10.10.5/app --sqlmap
+
+# nuclei : ne remonter qu'à partir d'une sévérité
+python src/main.py --scope scope.yaml run --cibles 10.10.10.5 --severite-min high
+```
+
+La phase **web** ne vise que les cibles dont le scan a révélé un service web ;
+la phase **vuln** (nuclei) tourne de préférence sur les URLs vivantes trouvées
+par httpx (logique inter-phases §6.1 du cahier).
 
 ## Tests
 

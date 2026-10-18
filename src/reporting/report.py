@@ -52,4 +52,49 @@ def generer_markdown(nom: str, etat: dict[str, Any]) -> str:
             lignes.append(f"- ⚠️ `{err['cible']}` — {err['erreur']}")
         lignes.append("")
 
+    web = etat.get("web")
+    if web:
+        lignes += ["## Phase 5 — Web", ""]
+        if web.get("saute"):
+            lignes += [f"_Sautée : {web['saute']}_", ""]
+        else:
+            urls = web.get("urls_vivantes", [])
+            if urls:
+                lignes.append(f"- URLs vivantes : {len(urls)}")
+                for u in urls:
+                    lignes.append(f"  - `{u}`")
+            for res in web.get("resultats", []):
+                nikto = res.get("nikto", {})
+                items = nikto.get("items", [])
+                if items:
+                    lignes.append(f"- nikto `{res.get('cible')}` : {len(items)} item(s)")
+                    for it in items[:20]:
+                        lignes.append(f"  - {it.get('methode')} `{it.get('url')}` — {it.get('description')}")
+                ffuf = res.get("ffuf", {})
+                for t in ffuf.get("trouvailles", [])[:20]:
+                    lignes.append(f"  - ffuf `{t.get('url')}` [{t.get('statut')}]")
+                sqlmap = res.get("sqlmap")
+                if sqlmap and sqlmap.get("vulnerable"):
+                    params = ", ".join(sqlmap.get("parametres_injectables", [])) or "?"
+                    lignes.append(f"- 🔴 sqlmap `{res.get('cible')}` injectable : {params} (SGBD {sqlmap.get('sgbd')})")
+            for err in web.get("erreurs", []):
+                lignes.append(f"- ⚠️ `{err['cible']}` [{err.get('outil')}] — {err['erreur']}")
+        lignes.append("")
+
+    vuln = etat.get("vuln")
+    if vuln:
+        lignes += ["## Phase 4 — Vulnérabilités (nuclei)", ""]
+        total = 0
+        for res in vuln.get("resultats", []):
+            findings = res.get("findings", [])
+            total += len(findings)
+            for f in findings:
+                sev = (f.get("severite") or "?").upper()
+                lignes.append(f"- [{sev}] `{f.get('template')}` — {f.get('emplacement')}")
+        if total == 0:
+            lignes.append("- Aucun finding.")
+        for err in vuln.get("erreurs", []):
+            lignes.append(f"- ⚠️ `{err['cible']}` — {err['erreur']}")
+        lignes.append("")
+
     return "\n".join(lignes)
