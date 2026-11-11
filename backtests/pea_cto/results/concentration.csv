@@ -1,0 +1,13 @@
+strategie,sans_top_k_titres,titres_retirés,CAGR %
+PullbackRSI2,0,,-19.53
+PullbackRSI2,1,NANO/EUR,-21.01
+PullbackRSI2,3,"NANO/EUR, VU/EUR, AM/EUR",-23.19
+PullbackRSI2,5,"NANO/EUR, VU/EUR, AM/EUR, CLARI/EUR, BIM/EUR",-25.36
+TrendBreakout,0,,15.67
+TrendBreakout,1,EXA/EUR,8.15
+TrendBreakout,3,"EXA/EUR, ENGI/EUR, ABVX/EUR",2.62
+TrendBreakout,5,"EXA/EUR, ENGI/EUR, ABVX/EUR, RUI/EUR, MT/EUR",-1.05
+MomentumRotation,0,,16.83
+MomentumRotation,1,NANO/EUR,0.23
+MomentumRotation,3,"NANO/EUR, EXA/EUR, FII/EUR",-4.51
+MomentumRotation,5,"NANO/EUR, EXA/EUR, FII/EUR, VIRI/EUR, DBV/EUR",-8.9

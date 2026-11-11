@@ -1,0 +1,54 @@
+{
+  "max_open_trades": 1,
+  "stake_currency": "EUR",
+  "stake_amount": "unlimited",
+  "tradable_balance_ratio": 0.99,
+  "dry_run": true,
+  "dry_run_wallet": 10000,
+  "timeframe": "1d",
+  "trading_mode": "spot",
+  "cancel_open_orders_on_exit": false,
+  "unfilledtimeout": {
+    "entry": 2880,
+    "exit": 2880,
+    "unit": "minutes"
+  },
+  "entry_pricing": {
+    "price_side": "other",
+    "use_order_book": false,
+    "price_last_balance": 0.0
+  },
+  "exit_pricing": {
+    "price_side": "other",
+    "use_order_book": false
+  },
+  "exchange": {
+    "name": "binance",
+    "key": "",
+    "secret": "",
+    "pair_whitelist": [
+      "CACLONG/EUR"
+    ],
+    "pair_blacklist": []
+  },
+  "pairlists": [
+    {
+      "method": "StaticPairList"
+    }
+  ],
+  "datadir": "user_data/data/binance",
+  "user_data_dir": "user_data",
+  "dataformat_ohlcv": "feather",
+  "internals": {
+    "process_throttle_secs": 5
+  },
+  "bot_name": "pea_backtest",
+  "initial_state": "stopped",
+  "db_url": "sqlite://",
+  "order_types": {
+    "entry": "market",
+    "exit": "market",
+    "stoploss": "market",
+    "stoploss_on_exchange": false
+  }
+}

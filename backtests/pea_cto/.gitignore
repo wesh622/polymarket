@@ -1,0 +1,6 @@
+raw/
+user_data/data/
+user_data/backtest_results/
+user_data/logs/
+__pycache__/
+*.sqlite*
